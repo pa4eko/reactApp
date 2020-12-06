@@ -2,6 +2,19 @@ import React from "react";
 
 class Table extends React.Component {
   render() {
+
+    const users = this.props.data.users.map((item) => {
+      const {id, firstName, lastName} = item;
+      return(
+        <tr>
+          <td >{id}</td>
+          <td>{firstName}</td>
+          <td>{lastName}</td>
+          <td><button type="button" class="btn btn-success" onClick={()=>this.props.deletePerson(id)}>Delete</button></td>
+        </tr>
+      )
+    });
+
     return (
       <table class="table">
         <thead>
@@ -12,16 +25,7 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
+          {users}
         </tbody>
       </table>
     );
