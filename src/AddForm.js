@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addUser } from "./redux/actions";
 
 class AddForm extends React.Component {
   state = {
@@ -51,4 +53,10 @@ class AddForm extends React.Component {
   }
 }
 
-export default AddForm;
+const mapDispatchToProps = (dispatch) => {
+  return{
+    addItem: (firstName, lastName) => dispatch(addUser(firstName, lastName))
+  }
+}
+
+export default connect(null,mapDispatchToProps) (AddForm);

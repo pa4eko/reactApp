@@ -1,16 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
+import { deletePerson } from "./redux/actions";
+import PropTypes from 'prop-types'
 
 class Table extends React.Component {
   render() {
 
-    const users = this.props.data.users.map((item) => {
+    const users = this.props.data.map((item) => {
       const {id, firstName, lastName} = item;
       return(
         <tr>
           <td >{id}</td>
           <td>{firstName}</td>
           <td>{lastName}</td>
-          <td><button type="button" class="btn btn-success" onClick={()=>this.props.deletePerson(id)}>Delete</button></td>
+          <td><button type="button" class="btn btn-success" onClick={()=>this.props.deleteUser(id)}>Delete</button></td>
         </tr>
       )
     });
@@ -32,4 +35,21 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+const mapStateToProps = (state) => {
+  return {
+    data: state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteUser: (id) => dispatch(deletePerson(id))
+  }
+}
+
+Table.propTypes = {
+  data: PropTypes.array.isRequired,
+  deleteUser: PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Table);
