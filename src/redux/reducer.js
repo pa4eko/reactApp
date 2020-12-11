@@ -12,6 +12,7 @@ const users =[
           id: action.id,
           firstName: action.firstName, 
           lastName: action.lastName, 
+          description: action.description
         }]
         case 'DELETE':
           return state.filter((user) => user.id !== action.id)

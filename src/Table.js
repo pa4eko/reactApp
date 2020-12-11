@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deletePerson } from "./redux/actions";
+import { deletePerson, onOpen } from "./redux/actions";
 import PropTypes from 'prop-types'
 
 class Table extends React.Component {
@@ -9,11 +9,12 @@ class Table extends React.Component {
     const users = this.props.data.map((item) => {
       const {id, firstName, lastName} = item;
       return(
-        <tr>
+        <tr key={id}>
           <td >{id}</td>
           <td>{firstName}</td>
           <td>{lastName}</td>
-          <td><button type="button" class="btn btn-success" onClick={()=>this.props.deleteUser(id)}>Delete</button></td>
+          <td><button type="button" className="btn btn-success" onClick={()=>this.props.deleteUser(id)}>Delete</button></td>
+          <td><button type="button" className="btn btn-warning" onClick={()=>this.props.onOpenModal()}>More</button></td>
         </tr>
       )
     });
@@ -37,13 +38,14 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state
+    data: state.tablePageReducer
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteUser: (id) => dispatch(deletePerson(id))
+    deleteUser: (id) => dispatch(deletePerson(id)),
+    onOpenModal: () => dispatch(onOpen())
   }
 }
 

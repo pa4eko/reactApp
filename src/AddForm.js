@@ -6,6 +6,7 @@ class AddForm extends React.Component {
   state = {
     firstName: '',
     lastName: '',
+    description: ''
   }
 
   onInputChange = (e) => {
@@ -17,32 +18,43 @@ class AddForm extends React.Component {
    }
 
    onSubmit = (e) => {
-    const {firstName, lastName} = this.state;
+    const {firstName, lastName, description} = this.state;
     e.preventDefault();
-    this.props.addItem(firstName, lastName);
+    this.props.addItem(firstName, lastName, description);
+    console.log(this.state)
   }
 
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <div class="form-group">
-          <label for="Name">Name</label>
+        <div className="form-group">
+          <label htmlFor="Name">Name</label>
           <input
             name="firstName"
             type="text"
-            class="form-control"
+            className="form-control"
             id="Name"
             onChange={this.onInputChange}
           />
         </div>
-        <div class="form-group">
-          <label for="LastName">LastName</label>
+        <div className="form-group">
+          <label htmlFor="LastName">LastName</label>
           <input
           onChange={this.onInputChange}
             type="text"
             name="lastName"
-            class="form-control"
+            className="form-control"
             id="LastName"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <input
+            onChange={this.onInputChange}
+            type="text"
+            name="description"
+            className="form-control"
+            id="description"
           />
         </div>
         <button type="submit" class="btn btn-primary">
@@ -55,7 +67,7 @@ class AddForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    addItem: (firstName, lastName) => dispatch(addUser(firstName, lastName))
+    addItem: (firstName, lastName, description) => dispatch(addUser(firstName, lastName, description))
   }
 }
 
